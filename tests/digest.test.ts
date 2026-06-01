@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildDigest, type Digest } from '@/lib/digest';
+import { buildDigest } from '@/lib/digest';
 
 const numericRows = [
   { a: '1', b: 'x' },
