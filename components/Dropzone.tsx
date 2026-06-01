@@ -5,14 +5,14 @@ import Papa from 'papaparse';
 import { buildDigest, type Digest } from '@/lib/digest';
 
 type Props = {
-  onDigest: (digest: Digest) => void;
-  onError: (message: string) => void;
+  onDigestAction: (digest: Digest) => void;
+  onErrorAction: (message: string) => void;
 };
 
 const MAX_BYTES = 5 * 1024 * 1024;
 const MAX_ROWS = 10_000;
 
-export function Dropzone({ onDigest, onError }: Props) {
+export function Dropzone({ onDigestAction, onErrorAction }: Props) {
   const [hover, setHover] = useState(false);
   const [working, setWorking] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -20,11 +20,11 @@ export function Dropzone({ onDigest, onError }: Props) {
   const handleFile = useCallback(
     (file: File) => {
       if (file.size > MAX_BYTES) {
-        onError('File is over 5MB. This demo is limited to smaller files.');
+        onErrorAction('File is over 5MB. This demo is limited to smaller files.');
         return;
       }
       if (!file.name.toLowerCase().endsWith('.csv')) {
-        onError('Please upload a .csv file.');
+        onErrorAction('Please upload a .csv file.');
         return;
       }
       setWorking(true);
@@ -34,22 +34,22 @@ export function Dropzone({ onDigest, onError }: Props) {
         complete: (results) => {
           setWorking(false);
           if (results.errors.length > 0) {
-            onError('Could not parse that CSV. Try the demo file?');
+            onErrorAction('Could not parse that CSV. Try the demo file?');
             return;
           }
           if (results.data.length > MAX_ROWS) {
-            onError('File has over 10,000 rows. This demo is capped lower.');
+            onErrorAction('File has over 10,000 rows. This demo is capped lower.');
             return;
           }
-          onDigest(buildDigest(results.data));
+          onDigestAction(buildDigest(results.data));
         },
         error: () => {
           setWorking(false);
-          onError('Could not read that file.');
+          onErrorAction('Could not read that file.');
         },
       });
     },
-    [onDigest, onError],
+    [onDigestAction, onErrorAction],
   );
 
   const useDemoFile = useCallback(async () => {
@@ -62,12 +62,12 @@ export function Dropzone({ onDigest, onError }: Props) {
         skipEmptyLines: true,
       });
       setWorking(false);
-      onDigest(buildDigest(parsed.data));
+      onDigestAction(buildDigest(parsed.data));
     } catch {
       setWorking(false);
-      onError('Could not load demo file.');
+      onErrorAction('Could not load demo file.');
     }
-  }, [onDigest, onError]);
+  }, [onDigestAction, onErrorAction]);
 
   return (
     <div
