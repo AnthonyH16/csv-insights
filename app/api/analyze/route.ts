@@ -1,10 +1,9 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getClient, MODEL, MAX_TOKENS, extractJSON } from '@/lib/anthropic';
 import { AnalyzeResponseSchema } from '@/lib/schemas';
 import { ANALYZE_USER, SYSTEM, digestBlock } from '@/lib/prompts';
+import demoResult from '../../../public/demo-result.json';
 
 const RequestSchema = z.object({
   digest: z.object({
@@ -27,10 +26,8 @@ export async function POST(req: Request) {
 
   if (parsed.demo) {
     try {
-      const path = join(process.cwd(), 'public', 'demo-result.json');
-      const cached = JSON.parse(await readFile(path, 'utf-8'));
       await new Promise((r) => setTimeout(r, DEMO_PERCEIVED_DELAY_MS));
-      return NextResponse.json(AnalyzeResponseSchema.parse(cached));
+      return NextResponse.json(AnalyzeResponseSchema.parse(demoResult));
     } catch (err) {
       console.error('demo cache miss', err);
       // fall through to live call
