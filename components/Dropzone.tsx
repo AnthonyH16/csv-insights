@@ -83,11 +83,11 @@ export function Dropzone({ onDigestAction, onErrorAction }: Props) {
         if (file) handleFile(file);
       }}
       className={`mx-auto flex w-full max-w-2xl flex-col items-center justify-center rounded-2xl border-2 border-dashed p-16 transition ${
-        hover ? 'border-[--color-accent] bg-[--color-bg-elev]' : 'border-[--color-border]'
+        hover ? 'border-[var(--color-accent)] bg-[var(--color-bg-elev)]' : 'border-[var(--color-border)]'
       }`}
     >
       <p className="text-2xl font-medium">Drop a CSV. Get insights in seconds.</p>
-      <p className="mt-2 text-[--color-fg-muted]">
+      <p className="mt-2 text-[var(--color-fg-muted)]">
         Up to 5MB / 10,000 rows. Your file never leaves the browser unparsed.
       </p>
       <div className="mt-8 flex gap-3">
@@ -95,7 +95,7 @@ export function Dropzone({ onDigestAction, onErrorAction }: Props) {
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={working}
-          className="rounded-lg bg-[--color-accent] px-5 py-3 font-medium text-black transition hover:bg-[--color-accent-dim] disabled:opacity-50"
+          className="rounded-lg bg-[var(--color-accent)] px-5 py-3 font-medium text-black transition hover:bg-[var(--color-accent-dim)] disabled:opacity-50"
         >
           {working ? 'Working…' : 'Choose CSV file'}
         </button>
@@ -103,7 +103,7 @@ export function Dropzone({ onDigestAction, onErrorAction }: Props) {
           type="button"
           onClick={useDemoFile}
           disabled={working}
-          className="rounded-lg border border-[--color-border] px-5 py-3 font-medium hover:border-[--color-accent] disabled:opacity-50"
+          className="rounded-lg border border-[var(--color-border)] px-5 py-3 font-medium hover:border-[var(--color-accent)] disabled:opacity-50"
         >
           Try a demo file
         </button>

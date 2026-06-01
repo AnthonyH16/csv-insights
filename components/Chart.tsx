@@ -126,7 +126,7 @@ export function Chart({ spec, rows }: Props) {
     spec.type === 'bar' ? barChart : spec.type === 'line' ? lineChart : pieChart;
 
   return (
-    <div className="fade-up rounded-2xl border border-[--color-border] bg-[--color-bg-elev] p-6">
+    <div className="fade-up rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elev)] p-6">
       <h3 className="mb-4 text-lg font-semibold">{spec.title}</h3>
       <div style={{ width: '100%', height: 280 }}>
         <ResponsiveContainer>{chart}</ResponsiveContainer>

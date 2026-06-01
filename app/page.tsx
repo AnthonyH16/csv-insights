@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-5xl px-6 py-16">
       <header className="mb-12 text-center">
-        <p className="text-sm uppercase tracking-widest text-[--color-accent]">
+        <p className="text-sm uppercase tracking-widest text-[var(--color-accent)]">
           Demo
         </p>
         <h1 className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">
@@ -66,12 +66,12 @@ export default function Home() {
       )}
 
       {state.kind === 'error' && (
-        <div className="mx-auto max-w-2xl rounded-2xl border border-[--color-border] bg-[--color-bg-elev] p-6 text-center">
+        <div className="mx-auto max-w-2xl rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elev)] p-6 text-center">
           <p className="text-lg">{state.message}</p>
           <button
             type="button"
             onClick={() => setState({ kind: 'idle' })}
-            className="mt-4 rounded-lg bg-[--color-accent] px-4 py-2 text-sm font-medium text-black"
+            className="mt-4 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-black"
           >
             Try again
           </button>
@@ -81,7 +81,7 @@ export default function Home() {
       {state.kind === 'ready' && (
         <div className="space-y-8">
           <section>
-            <h2 className="mb-4 text-sm uppercase tracking-widest text-[--color-fg-muted]">
+            <h2 className="mb-4 text-sm uppercase tracking-widest text-[var(--color-fg-muted)]">
               Insights
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
@@ -92,7 +92,7 @@ export default function Home() {
           </section>
 
           <section>
-            <h2 className="mb-4 text-sm uppercase tracking-widest text-[--color-fg-muted]">
+            <h2 className="mb-4 text-sm uppercase tracking-widest text-[var(--color-fg-muted)]">
               Charts
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
@@ -107,7 +107,7 @@ export default function Home() {
             seedQuestions={state.result.followup_questions}
           />
 
-          <div className="rounded-2xl border border-[--color-accent] bg-[--color-bg-elev] p-6 text-center">
+          <div className="rounded-2xl border border-[var(--color-accent)] bg-[var(--color-bg-elev)] p-6 text-center">
             <p className="text-lg">
               Want this on your data, automated, in your stack?
             </p>
@@ -115,7 +115,7 @@ export default function Home() {
               href={CAL_LINK}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-block rounded-lg bg-[--color-accent] px-5 py-3 font-medium text-black hover:bg-[--color-accent-dim]"
+              className="mt-3 inline-block rounded-lg bg-[var(--color-accent)] px-5 py-3 font-medium text-black hover:bg-[var(--color-accent-dim)]"
             >
               Book a 15-min call →
             </a>
@@ -125,7 +125,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setState({ kind: 'idle' })}
-              className="text-sm text-[--color-fg-muted] hover:text-[--color-fg]"
+              className="text-sm text-[var(--color-fg-muted)] hover:text-[var(--color-fg)]"
             >
               Analyze another file
             </button>
