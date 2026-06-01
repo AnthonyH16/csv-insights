@@ -24,6 +24,14 @@ type Props = {
 
 const PALETTE = ['#ff7a45', '#f5a623', '#d4d8c5', '#7fb069', '#5d737e'];
 
+function compactNumber(value: number): string {
+  const abs = Math.abs(value);
+  if (abs >= 1_000_000_000) return `${(value / 1_000_000_000).toFixed(1)}B`;
+  if (abs >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
+  if (abs >= 1_000) return `${(value / 1_000).toFixed(value % 1000 === 0 ? 0 : 1)}k`;
+  return String(value);
+}
+
 function aggregate(
   rows: Record<string, unknown>[],
   xKey: string,
@@ -62,7 +70,7 @@ export function Chart({ spec, rows }: Props) {
     <BarChart data={data}>
       <CartesianGrid stroke="#2a241d" strokeDasharray="3 3" />
       <XAxis dataKey={spec.x_column} stroke="#a39e94" tick={{ fontSize: 11 }} />
-      <YAxis stroke="#a39e94" tick={{ fontSize: 11 }} />
+      <YAxis stroke="#a39e94" tick={{ fontSize: 11 }} tickFormatter={compactNumber} width={50} />
       <Tooltip
         contentStyle={{ background: '#1a1612', border: '1px solid #2a241d' }}
       />
@@ -83,7 +91,7 @@ export function Chart({ spec, rows }: Props) {
     <LineChart data={data}>
       <CartesianGrid stroke="#2a241d" strokeDasharray="3 3" />
       <XAxis dataKey={spec.x_column} stroke="#a39e94" tick={{ fontSize: 11 }} />
-      <YAxis stroke="#a39e94" tick={{ fontSize: 11 }} />
+      <YAxis stroke="#a39e94" tick={{ fontSize: 11 }} tickFormatter={compactNumber} width={50} />
       <Tooltip
         contentStyle={{ background: '#1a1612', border: '1px solid #2a241d' }}
       />

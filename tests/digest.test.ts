@@ -30,10 +30,22 @@ describe('buildDigest', () => {
     expect(b.distinctCount).toBe(3);
   });
 
-  it('caps sample rows at 20', () => {
+  it('caps sample rows at 30', () => {
     const rows = Array.from({ length: 100 }, (_, i) => ({ a: String(i) }));
     const d = buildDigest(rows);
-    expect(d.sampleRows.length).toBe(20);
+    expect(d.sampleRows.length).toBe(30);
+  });
+
+  it('returns top rows sorted by the largest numeric column', () => {
+    const rows = Array.from({ length: 50 }, (_, i) => ({
+      label: `r${i}`,
+      score: String(i),
+    }));
+    const d = buildDigest(rows);
+    expect(d.topRowsSortKey).toBe('score');
+    expect(d.topRows.length).toBe(15);
+    expect(Number(d.topRows[0].score)).toBe(49);
+    expect(Number(d.topRows[14].score)).toBe(35);
   });
 
   it('reports total row count', () => {

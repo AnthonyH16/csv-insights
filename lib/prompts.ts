@@ -3,6 +3,14 @@ import type { Digest } from './digest';
 export const SYSTEM = `You are a senior data analyst. Given a digest of a CSV file (columns, types, summary stats, and sample rows), you return concise, non-obvious insights that a business owner would find immediately valuable. Always return valid JSON matching the requested schema. Never include preamble or trailing commentary outside the JSON.`;
 
 export function digestBlock(digest: Digest): string {
+  const topRowsSection =
+    digest.topRows && digest.topRows.length > 0 && digest.topRowsSortKey
+      ? `
+
+Top ${digest.topRows.length} rows by "${digest.topRowsSortKey}" (highest values — look for patterns and outliers here):
+${JSON.stringify(digest.topRows, null, 2)}`
+      : '';
+
   return `CSV DIGEST
 Total rows: ${digest.rowCount}
 
@@ -19,8 +27,8 @@ ${digest.columns
   })
   .join('\n')}
 
-Sample rows (first 20):
-${JSON.stringify(digest.sampleRows, null, 2)}`;
+Random sample of ${digest.sampleRows.length} rows:
+${JSON.stringify(digest.sampleRows, null, 2)}${topRowsSection}`;
 }
 
 export const ANALYZE_USER = `Return a JSON object with this exact shape:
@@ -46,7 +54,7 @@ export const ANALYZE_USER = `Return a JSON object with this exact shape:
   ]
 }
 
-Prioritize insights that are non-obvious, quantitative where possible, and concrete (cite columns and values). Pick charts that match the data shape — line for time series, bar for categorical comparisons, pie only for parts-of-whole with <8 categories.`;
+Prioritize insights that are non-obvious, quantitative where possible, and concrete (cite columns and values). When the "Top rows" section shows the same category/segment/period repeating in the highest values, that almost always indicates a real anomaly or trend worth calling out by name. Pick charts that match the data shape — line for time series, bar for categorical comparisons, pie only for parts-of-whole with <8 categories.`;
 
 export function followupUser(question: string): string {
   return `The user asked: "${question}"

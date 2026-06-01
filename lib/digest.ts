@@ -14,6 +14,8 @@ export type Digest = {
   rowCount: number;
   columns: ColumnSummary[];
   sampleRows: Record<string, unknown>[];
+  topRows: Record<string, unknown>[];
+  topRowsSortKey?: string;
 };
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}(?:[T\s].*)?$/;
@@ -62,9 +64,21 @@ function summarizeColumn(name: string, values: unknown[]): ColumnSummary {
   return base;
 }
 
+const SAMPLE_SIZE = 30;
+const TOP_ROWS_SIZE = 15;
+
+function randomSample<T>(arr: T[], n: number): T[] {
+  if (arr.length <= n) return [...arr];
+  const indices = new Set<number>();
+  while (indices.size < n) {
+    indices.add(Math.floor(Math.random() * arr.length));
+  }
+  return Array.from(indices).sort((a, b) => a - b).map((i) => arr[i]);
+}
+
 export function buildDigest(rows: Record<string, unknown>[]): Digest {
   if (rows.length === 0) {
-    return { rowCount: 0, columns: [], sampleRows: [] };
+    return { rowCount: 0, columns: [], sampleRows: [], topRows: [] };
   }
   const columnNames = Array.from(
     new Set(rows.flatMap((r) => Object.keys(r))),
@@ -72,6 +86,25 @@ export function buildDigest(rows: Record<string, unknown>[]): Digest {
   const columns = columnNames.map((name) =>
     summarizeColumn(name, rows.map((r) => r[name])),
   );
-  const sampleRows = rows.slice(0, 20);
-  return { rowCount: rows.length, columns, sampleRows };
+  const sampleRows = randomSample(rows, SAMPLE_SIZE);
+
+  const numericCol = [...columns]
+    .filter((c) => c.type === 'number' && c.max !== undefined)
+    .sort((a, b) => (b.max ?? 0) - (a.max ?? 0))[0];
+
+  let topRows: Record<string, unknown>[] = [];
+  if (numericCol) {
+    topRows = [...rows]
+      .filter((r) => !Number.isNaN(Number(r[numericCol.name])))
+      .sort((a, b) => Number(b[numericCol.name]) - Number(a[numericCol.name]))
+      .slice(0, TOP_ROWS_SIZE);
+  }
+
+  return {
+    rowCount: rows.length,
+    columns,
+    sampleRows,
+    topRows,
+    topRowsSortKey: numericCol?.name,
+  };
 }
