@@ -15,7 +15,7 @@ type State =
   | { kind: 'error'; message: string; digest?: Digest }
   | { kind: 'ready'; digest: Digest; result: AnalyzeResponse; rawRows: Record<string, unknown>[] };
 
-const CAL_LINK = 'https://cal.com/your-handle/15min';
+const CAL_LINK = 'https://cal.com/anthonyh16';
 
 export default function Home() {
   const [state, setState] = useState<State>({ kind: 'idle' });
