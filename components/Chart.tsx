@@ -32,6 +32,14 @@ function compactNumber(value: number): string {
   return String(value);
 }
 
+function tooltipValue(value: unknown): string {
+  if (typeof value !== 'number') return String(value);
+  return value.toLocaleString(undefined, {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+  });
+}
+
 function aggregate(
   rows: Record<string, unknown>[],
   xKey: string,
@@ -73,6 +81,7 @@ export function Chart({ spec, rows }: Props) {
       <YAxis stroke="#a39e94" tick={{ fontSize: 11 }} tickFormatter={compactNumber} width={50} />
       <Tooltip
         contentStyle={{ background: '#1a1612', border: '1px solid #2a241d' }}
+        formatter={(value) => tooltipValue(value)}
       />
       {groupKeys.length > 1 && <Legend />}
       {groupKeys.map((k, i) => (
@@ -94,6 +103,7 @@ export function Chart({ spec, rows }: Props) {
       <YAxis stroke="#a39e94" tick={{ fontSize: 11 }} tickFormatter={compactNumber} width={50} />
       <Tooltip
         contentStyle={{ background: '#1a1612', border: '1px solid #2a241d' }}
+        formatter={(value) => tooltipValue(value)}
       />
       {groupKeys.length > 1 && <Legend />}
       {groupKeys.map((k, i) => (
@@ -114,6 +124,7 @@ export function Chart({ spec, rows }: Props) {
     <PieChart>
       <Tooltip
         contentStyle={{ background: '#1a1612', border: '1px solid #2a241d' }}
+        formatter={(value) => tooltipValue(value)}
       />
       <Pie
         data={data}
