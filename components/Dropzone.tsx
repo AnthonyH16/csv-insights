@@ -5,7 +5,7 @@ import Papa from 'papaparse';
 import { buildDigest, type Digest } from '@/lib/digest';
 
 type Props = {
-  onDigestAction: (digest: Digest) => void;
+  onDigestAction: (digest: Digest, rawRows: Record<string, unknown>[]) => void;
   onErrorAction: (message: string) => void;
 };
 
@@ -41,7 +41,7 @@ export function Dropzone({ onDigestAction, onErrorAction }: Props) {
             onErrorAction('File has over 10,000 rows. This demo is capped lower.');
             return;
           }
-          onDigestAction(buildDigest(results.data));
+          onDigestAction(buildDigest(results.data), results.data);
         },
         error: () => {
           setWorking(false);
@@ -62,7 +62,7 @@ export function Dropzone({ onDigestAction, onErrorAction }: Props) {
         skipEmptyLines: true,
       });
       setWorking(false);
-      onDigestAction(buildDigest(parsed.data));
+      onDigestAction(buildDigest(parsed.data), parsed.data);
     } catch {
       setWorking(false);
       onErrorAction('Could not load demo file.');

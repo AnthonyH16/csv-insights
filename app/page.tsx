@@ -1,65 +1,137 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import { Dropzone } from '@/components/Dropzone';
+import { InsightCard } from '@/components/InsightCard';
+import { Chart } from '@/components/Chart';
+import { FollowupChat } from '@/components/FollowupChat';
+import { InsightsSkeleton, ChartsSkeleton } from '@/components/Skeleton';
+import type { Digest } from '@/lib/digest';
+import type { AnalyzeResponse } from '@/lib/schemas';
+
+type State =
+  | { kind: 'idle' }
+  | { kind: 'loading'; digest: Digest }
+  | { kind: 'error'; message: string; digest?: Digest }
+  | { kind: 'ready'; digest: Digest; result: AnalyzeResponse; rawRows: Record<string, unknown>[] };
+
+const CAL_LINK = 'https://cal.com/your-handle/15min';
 
 export default function Home() {
+  const [state, setState] = useState<State>({ kind: 'idle' });
+
+  async function analyze(digest: Digest, rawRows: Record<string, unknown>[]) {
+    setState({ kind: 'loading', digest });
+    try {
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ digest }),
+      });
+      if (!res.ok) throw new Error('request failed');
+      const result = (await res.json()) as AnalyzeResponse;
+      setState({ kind: 'ready', digest, result, rawRows });
+    } catch {
+      setState({
+        kind: 'error',
+        message: 'We could not generate insights. Please try again.',
+        digest,
+      });
+    }
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="mx-auto max-w-5xl px-6 py-16">
+      <header className="mb-12 text-center">
+        <p className="text-sm uppercase tracking-widest text-[--color-accent]">
+          Demo
+        </p>
+        <h1 className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">
+          Turn a CSV into a board-ready brief in seconds.
+        </h1>
+      </header>
+
+      {state.kind === 'idle' && (
+        <Dropzone
+          onDigestAction={analyze}
+          onErrorAction={(message) => setState({ kind: 'error', message })}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+      )}
+
+      {state.kind === 'loading' && (
+        <div className="space-y-6">
+          <InsightsSkeleton />
+          <ChartsSkeleton />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      )}
+
+      {state.kind === 'error' && (
+        <div className="mx-auto max-w-2xl rounded-2xl border border-[--color-border] bg-[--color-bg-elev] p-6 text-center">
+          <p className="text-lg">{state.message}</p>
+          <button
+            type="button"
+            onClick={() => setState({ kind: 'idle' })}
+            className="mt-4 rounded-lg bg-[--color-accent] px-4 py-2 text-sm font-medium text-black"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            Try again
+          </button>
         </div>
-      </main>
-    </div>
+      )}
+
+      {state.kind === 'ready' && (
+        <div className="space-y-8">
+          <section>
+            <h2 className="mb-4 text-sm uppercase tracking-widest text-[--color-fg-muted]">
+              Insights
+            </h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {state.result.insights.map((insight, i) => (
+                <InsightCard key={i} insight={insight} index={i} />
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h2 className="mb-4 text-sm uppercase tracking-widest text-[--color-fg-muted]">
+              Charts
+            </h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {state.result.suggested_charts.map((spec, i) => (
+                <Chart key={i} spec={spec} rows={state.rawRows} />
+              ))}
+            </div>
+          </section>
+
+          <FollowupChat
+            digest={state.digest}
+            seedQuestions={state.result.followup_questions}
+          />
+
+          <div className="rounded-2xl border border-[--color-accent] bg-[--color-bg-elev] p-6 text-center">
+            <p className="text-lg">
+              Want this on your data, automated, in your stack?
+            </p>
+            <a
+              href={CAL_LINK}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-block rounded-lg bg-[--color-accent] px-5 py-3 font-medium text-black hover:bg-[--color-accent-dim]"
+            >
+              Book a 15-min call →
+            </a>
+          </div>
+
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => setState({ kind: 'idle' })}
+              className="text-sm text-[--color-fg-muted] hover:text-[--color-fg]"
+            >
+              Analyze another file
+            </button>
+          </div>
+        </div>
+      )}
+    </main>
   );
 }
