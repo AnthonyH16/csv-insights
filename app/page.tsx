@@ -38,7 +38,9 @@ export default function Home() {
     } catch {
       setState({
         kind: 'error',
-        message: 'We could not generate insights. Please try again.',
+        message: isDemo
+          ? 'Could not load the demo. Please try again in a moment.'
+          : "We couldn't read this file as a dataset. The demo works best on standard tabular CSVs — files with a clear header row and consistent columns (sales reports, customer lists, inventory, time-series metrics). Report-style or multi-section CSVs aren't supported yet.",
         digest,
       });
     }
@@ -71,14 +73,18 @@ export default function Home() {
 
       {state.kind === 'error' && (
         <div className="mx-auto max-w-2xl rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elev)] p-6 text-center">
-          <p className="text-lg">{state.message}</p>
-          <button
-            type="button"
-            onClick={() => setState({ kind: 'idle' })}
-            className="mt-4 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-black"
-          >
-            Try again
-          </button>
+          <p className="text-base leading-relaxed text-[var(--color-fg-muted)]">
+            {state.message}
+          </p>
+          <div className="mt-5 flex justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => setState({ kind: 'idle' })}
+              className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-black"
+            >
+              Try another file
+            </button>
+          </div>
         </div>
       )}
 

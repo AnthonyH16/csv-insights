@@ -97,8 +97,9 @@ export function Dropzone({ onDigestAction, onErrorAction }: Props) {
       }`}
     >
       <p className="text-2xl font-medium">Drop a CSV. Get insights in seconds.</p>
-      <p className="mt-2 text-[var(--color-fg-muted)]">
-        Up to 5MB / 10,000 rows. Your file never leaves the browser unparsed.
+      <p className="mt-2 max-w-md text-center text-[var(--color-fg-muted)]">
+        Works best with row-and-column data — sales, customers, inventory, time series.
+        Up to 5MB / 10,000 rows. Your file is parsed in your browser.
       </p>
       <div className="mt-8 flex gap-3">
         <button
