@@ -22,7 +22,6 @@ type Props = {
   rows: Record<string, unknown>[];
 };
 
-const ACCENT = '#ff7a45';
 const PALETTE = ['#ff7a45', '#f5a623', '#d4d8c5', '#7fb069', '#5d737e'];
 
 function aggregate(
