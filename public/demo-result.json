@@ -1,0 +1,57 @@
+{
+  "insights": [
+    {
+      "title": "Northeast Outdoor in Mid-August Is a Revenue Anomaly",
+      "description": "Five of the top 10 revenue records are Northeast + Outdoor transactions clustered between August 8–26, 2025, with units reaching 83–103 — 4–5x the dataset mean of 22.72. Revenue per unit in these rows ranges from $76–$101, far above the overall implied average of ~$67, suggesting either a bulk order event, a promotional spike, or a seasonal peak unique to this region-category combination.",
+      "why_it_matters": "Understanding whether this spike is repeatable (annual outdoor season, a single large buyer, or a one-time promotion) could unlock a significant revenue planning opportunity for Q3 Northeast Outdoor inventory and staffing."
+    },
+    {
+      "title": "Holiday and Post-Holiday Period Drives Broad High-Revenue Days Across All Regions",
+      "description": "Outside the August Outdoor anomaly, the remaining top-revenue records are concentrated in late December 2025 (Dec 9, 21, 24) and early January 2026 (Jan 3–24), spanning all four regions and multiple categories (Home, Apparel, Beauty, Electronics, Outdoor). Unit volumes in this window average ~53 — more than double the dataset mean — indicating a broad seasonal demand surge rather than a category-specific event.",
+      "why_it_matters": "The holiday lift is category-agnostic and cross-regional, meaning inventory and fulfillment capacity should be scaled up universally in Q4–Q1, not just for specific product lines."
+    },
+    {
+      "title": "Revenue Per Unit Varies Wildly — Apparel and Beauty Show Extreme Spread",
+      "description": "Comparing sample rows: Southeast Apparel (Loyalty, July 17) yields $80.76/unit, while Midwest Apparel (New, July 12) yields only $30.23/unit with just 4 units. Similarly, Midwest Beauty (Returning, Aug 13) hits $105.71/unit versus West Beauty (Returning, Sept 8) at $33.08/unit. This 3–4x spread within the same category suggests that segment mix, order size, or regional pricing materially distorts category-level revenue averages.",
+      "why_it_matters": "Averaging revenue by category alone will produce misleading performance benchmarks; segment and region must be controlled for when evaluating category profitability."
+    },
+    {
+      "title": "Loyalty Customers Appear Disproportionately in Low-Revenue Transactions",
+      "description": "In the sample data, Loyalty segment rows frequently show lower revenue despite moderate unit counts — e.g., Northeast Outdoor Loyalty (July 13, 25 units, $703.20 = $28.13/unit) versus New segment rows in similar categories generating $60–$100/unit. If this pattern holds across the full 7,300 rows, Loyalty customers may be concentrated in discount-driven or lower-margin purchases, contrary to typical expectations.",
+      "why_it_matters": "If Loyalty members are systematically lower in revenue-per-unit, the loyalty program's discount structure may be eroding margins and should be audited against acquisition cost savings."
+    },
+    {
+      "title": "Electronics Consistently Underperforms on Units and Revenue",
+      "description": "Electronics rows in the sample (Midwest Returning Sept 11: 20 units/$1,792; Northeast Returning Mar 29: 21 units/$749; West New Apr 14: 6 units/$253; Southeast Returning Jan 6: 53 units/$6,079) show high variance and generally lower per-unit revenue except in isolated high-unit spikes. At 1 of 5 categories, Electronics appears to lack the consistent volume or pricing that Outdoor or Home demonstrate.",
+      "why_it_matters": "Electronics may require targeted promotions or bundle strategies to achieve volume consistency, especially outside the post-holiday spike window where other categories naturally lift."
+    }
+  ],
+  "suggested_charts": [
+    {
+      "type": "line",
+      "title": "Daily Revenue Over Time by Category",
+      "x_column": "date",
+      "y_column": "revenue",
+      "group_by": "category"
+    },
+    {
+      "type": "bar",
+      "title": "Average Revenue Per Unit by Region and Customer Segment",
+      "x_column": "region",
+      "y_column": "revenue",
+      "group_by": "customer_segment"
+    },
+    {
+      "type": "bar",
+      "title": "Total Units Sold by Category and Customer Segment",
+      "x_column": "category",
+      "y_column": "units",
+      "group_by": "customer_segment"
+    }
+  ],
+  "followup_questions": [
+    "Are the extreme Northeast Outdoor unit volumes in mid-August 2025 attributable to a single large B2B buyer or a consumer promotion, and did this pattern occur in the same period in prior years?",
+    "What is the average revenue per unit for Loyalty vs. New vs. Returning segments when controlling for category and region — does Loyalty consistently underperform on margin?",
+    "Does the December–January revenue surge represent genuine demand growth or order pull-forward, and how does sell-through rate compare to other periods for the same categories?"
+  ]
+}

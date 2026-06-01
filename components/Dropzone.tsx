@@ -5,7 +5,11 @@ import Papa from 'papaparse';
 import { buildDigest, type Digest } from '@/lib/digest';
 
 type Props = {
-  onDigestAction: (digest: Digest, rawRows: Record<string, unknown>[]) => void;
+  onDigestAction: (
+    digest: Digest,
+    rawRows: Record<string, unknown>[],
+    isDemo?: boolean,
+  ) => void;
   onErrorAction: (message: string) => void;
 };
 
@@ -55,14 +59,20 @@ export function Dropzone({ onDigestAction, onErrorAction }: Props) {
   const useDemoFile = useCallback(async () => {
     setWorking(true);
     try {
-      const res = await fetch('/demo-data.csv');
-      const text = await res.text();
-      const parsed = Papa.parse<Record<string, unknown>>(text, {
+      const [csvRes, digestRes] = await Promise.all([
+        fetch('/demo-data.csv'),
+        fetch('/demo-digest.json'),
+      ]);
+      const csvText = await csvRes.text();
+      const parsed = Papa.parse<Record<string, unknown>>(csvText, {
         header: true,
         skipEmptyLines: true,
       });
       setWorking(false);
-      onDigestAction(buildDigest(parsed.data), parsed.data);
+      const cachedDigest = digestRes.ok
+        ? (await digestRes.json() as Digest)
+        : buildDigest(parsed.data);
+      onDigestAction(cachedDigest, parsed.data, digestRes.ok);
     } catch {
       setWorking(false);
       onErrorAction('Could not load demo file.');

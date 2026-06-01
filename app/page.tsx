@@ -20,13 +20,17 @@ const CAL_LINK = 'https://cal.com/your-handle/15min';
 export default function Home() {
   const [state, setState] = useState<State>({ kind: 'idle' });
 
-  async function analyze(digest: Digest, rawRows: Record<string, unknown>[]) {
+  async function analyze(
+    digest: Digest,
+    rawRows: Record<string, unknown>[],
+    isDemo?: boolean,
+  ) {
     setState({ kind: 'loading', digest });
     try {
       const res = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ digest }),
+        body: JSON.stringify({ digest, demo: isDemo }),
       });
       if (!res.ok) throw new Error('request failed');
       const result = (await res.json()) as AnalyzeResponse;
@@ -97,7 +101,9 @@ export default function Home() {
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
               {state.result.suggested_charts.map((spec, i) => (
-                <Chart key={i} spec={spec} rows={state.rawRows} />
+                <div key={i} className={i === 0 ? 'md:col-span-2' : ''}>
+                  <Chart spec={spec} rows={state.rawRows} />
+                </div>
               ))}
             </div>
           </section>

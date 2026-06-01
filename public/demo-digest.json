@@ -1,0 +1,410 @@
+{
+  "rowCount": 7300,
+  "columns": [
+    {
+      "name": "date",
+      "type": "date",
+      "nullCount": 0,
+      "distinctCount": 365
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "nullCount": 0,
+      "distinctCount": 4
+    },
+    {
+      "name": "category",
+      "type": "string",
+      "nullCount": 0,
+      "distinctCount": 5
+    },
+    {
+      "name": "customer_segment",
+      "type": "string",
+      "nullCount": 0,
+      "distinctCount": 3
+    },
+    {
+      "name": "units",
+      "type": "number",
+      "nullCount": 0,
+      "min": 3,
+      "max": 106,
+      "mean": 22.717260273972602
+    },
+    {
+      "name": "revenue",
+      "type": "number",
+      "nullCount": 0,
+      "min": 67.86,
+      "max": 10386.47,
+      "mean": 1520.3857315068485
+    }
+  ],
+  "sampleRows": [
+    {
+      "date": "2025-06-15",
+      "region": "Midwest",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "18",
+      "revenue": "1252.88"
+    },
+    {
+      "date": "2025-07-11",
+      "region": "Southeast",
+      "category": "Home",
+      "customer_segment": "Loyalty",
+      "units": "12",
+      "revenue": "678.32"
+    },
+    {
+      "date": "2025-07-12",
+      "region": "Midwest",
+      "category": "Apparel",
+      "customer_segment": "New",
+      "units": "4",
+      "revenue": "120.93"
+    },
+    {
+      "date": "2025-07-13",
+      "region": "Northeast",
+      "category": "Outdoor",
+      "customer_segment": "Loyalty",
+      "units": "25",
+      "revenue": "703.2"
+    },
+    {
+      "date": "2025-07-17",
+      "region": "Southeast",
+      "category": "Apparel",
+      "customer_segment": "Loyalty",
+      "units": "11",
+      "revenue": "888.42"
+    },
+    {
+      "date": "2025-07-22",
+      "region": "West",
+      "category": "Beauty",
+      "customer_segment": "New",
+      "units": "13",
+      "revenue": "861.77"
+    },
+    {
+      "date": "2025-07-23",
+      "region": "Southeast",
+      "category": "Apparel",
+      "customer_segment": "New",
+      "units": "12",
+      "revenue": "1035.17"
+    },
+    {
+      "date": "2025-08-03",
+      "region": "Southeast",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "29",
+      "revenue": "3018.12"
+    },
+    {
+      "date": "2025-08-13",
+      "region": "Northeast",
+      "category": "Home",
+      "customer_segment": "Loyalty",
+      "units": "16",
+      "revenue": "1729.81"
+    },
+    {
+      "date": "2025-08-13",
+      "region": "Midwest",
+      "category": "Beauty",
+      "customer_segment": "Returning",
+      "units": "17",
+      "revenue": "1797.13"
+    },
+    {
+      "date": "2025-08-27",
+      "region": "Northeast",
+      "category": "Apparel",
+      "customer_segment": "Loyalty",
+      "units": "15",
+      "revenue": "254.72"
+    },
+    {
+      "date": "2025-09-08",
+      "region": "Midwest",
+      "category": "Home",
+      "customer_segment": "Loyalty",
+      "units": "9",
+      "revenue": "246.82"
+    },
+    {
+      "date": "2025-09-08",
+      "region": "West",
+      "category": "Beauty",
+      "customer_segment": "Returning",
+      "units": "32",
+      "revenue": "1058.45"
+    },
+    {
+      "date": "2025-09-09",
+      "region": "Southeast",
+      "category": "Apparel",
+      "customer_segment": "Returning",
+      "units": "13",
+      "revenue": "399.43"
+    },
+    {
+      "date": "2025-09-11",
+      "region": "Midwest",
+      "category": "Electronics",
+      "customer_segment": "Returning",
+      "units": "20",
+      "revenue": "1792.61"
+    },
+    {
+      "date": "2025-09-21",
+      "region": "Northeast",
+      "category": "Home",
+      "customer_segment": "New",
+      "units": "38",
+      "revenue": "2697.1"
+    },
+    {
+      "date": "2025-10-17",
+      "region": "Northeast",
+      "category": "Beauty",
+      "customer_segment": "Returning",
+      "units": "37",
+      "revenue": "2496.86"
+    },
+    {
+      "date": "2025-11-07",
+      "region": "Midwest",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "10",
+      "revenue": "1199.26"
+    },
+    {
+      "date": "2025-11-17",
+      "region": "Northeast",
+      "category": "Apparel",
+      "customer_segment": "Returning",
+      "units": "10",
+      "revenue": "1000.61"
+    },
+    {
+      "date": "2025-11-22",
+      "region": "Midwest",
+      "category": "Apparel",
+      "customer_segment": "Loyalty",
+      "units": "11",
+      "revenue": "1228.64"
+    },
+    {
+      "date": "2025-12-01",
+      "region": "West",
+      "category": "Apparel",
+      "customer_segment": "Returning",
+      "units": "31",
+      "revenue": "3195.7"
+    },
+    {
+      "date": "2026-01-08",
+      "region": "Southeast",
+      "category": "Home",
+      "customer_segment": "Loyalty",
+      "units": "24",
+      "revenue": "559"
+    },
+    {
+      "date": "2026-01-11",
+      "region": "Midwest",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "29",
+      "revenue": "479.06"
+    },
+    {
+      "date": "2026-01-26",
+      "region": "Northeast",
+      "category": "Beauty",
+      "customer_segment": "New",
+      "units": "27",
+      "revenue": "1978.16"
+    },
+    {
+      "date": "2026-02-10",
+      "region": "Northeast",
+      "category": "Beauty",
+      "customer_segment": "Returning",
+      "units": "43",
+      "revenue": "3085.12"
+    },
+    {
+      "date": "2026-02-19",
+      "region": "Midwest",
+      "category": "Outdoor",
+      "customer_segment": "Returning",
+      "units": "10",
+      "revenue": "786.66"
+    },
+    {
+      "date": "2026-02-21",
+      "region": "Southeast",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "10",
+      "revenue": "755.76"
+    },
+    {
+      "date": "2026-03-07",
+      "region": "Midwest",
+      "category": "Apparel",
+      "customer_segment": "Loyalty",
+      "units": "21",
+      "revenue": "1443.47"
+    },
+    {
+      "date": "2026-03-29",
+      "region": "Northeast",
+      "category": "Electronics",
+      "customer_segment": "Returning",
+      "units": "21",
+      "revenue": "749.11"
+    },
+    {
+      "date": "2026-04-14",
+      "region": "West",
+      "category": "Electronics",
+      "customer_segment": "New",
+      "units": "6",
+      "revenue": "253.04"
+    }
+  ],
+  "topRows": [
+    {
+      "date": "2025-08-17",
+      "region": "Northeast",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "103",
+      "revenue": "10386.47"
+    },
+    {
+      "date": "2025-08-15",
+      "region": "Northeast",
+      "category": "Outdoor",
+      "customer_segment": "Returning",
+      "units": "83",
+      "revenue": "9667.75"
+    },
+    {
+      "date": "2025-08-16",
+      "region": "Northeast",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "95",
+      "revenue": "8277.73"
+    },
+    {
+      "date": "2025-08-26",
+      "region": "Northeast",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "98",
+      "revenue": "7499.91"
+    },
+    {
+      "date": "2025-08-08",
+      "region": "Northeast",
+      "category": "Outdoor",
+      "customer_segment": "New",
+      "units": "98",
+      "revenue": "6303.36"
+    },
+    {
+      "date": "2026-01-24",
+      "region": "Southeast",
+      "category": "Home",
+      "customer_segment": "Returning",
+      "units": "54",
+      "revenue": "6207.53"
+    },
+    {
+      "date": "2025-12-24",
+      "region": "Southeast",
+      "category": "Beauty",
+      "customer_segment": "Loyalty",
+      "units": "53",
+      "revenue": "6192.44"
+    },
+    {
+      "date": "2025-12-09",
+      "region": "Northeast",
+      "category": "Apparel",
+      "customer_segment": "Loyalty",
+      "units": "54",
+      "revenue": "6158.67"
+    },
+    {
+      "date": "2025-12-21",
+      "region": "West",
+      "category": "Home",
+      "customer_segment": "Returning",
+      "units": "51",
+      "revenue": "6104.61"
+    },
+    {
+      "date": "2026-01-22",
+      "region": "Northeast",
+      "category": "Outdoor",
+      "customer_segment": "Returning",
+      "units": "53",
+      "revenue": "6092.7"
+    },
+    {
+      "date": "2026-01-06",
+      "region": "Southeast",
+      "category": "Electronics",
+      "customer_segment": "Returning",
+      "units": "53",
+      "revenue": "6079.74"
+    },
+    {
+      "date": "2025-12-24",
+      "region": "Midwest",
+      "category": "Home",
+      "customer_segment": "Returning",
+      "units": "56",
+      "revenue": "6033.17"
+    },
+    {
+      "date": "2026-01-09",
+      "region": "West",
+      "category": "Apparel",
+      "customer_segment": "Returning",
+      "units": "52",
+      "revenue": "6009.68"
+    },
+    {
+      "date": "2026-01-04",
+      "region": "Northeast",
+      "category": "Outdoor",
+      "customer_segment": "Loyalty",
+      "units": "54",
+      "revenue": "6008.78"
+    },
+    {
+      "date": "2026-01-03",
+      "region": "West",
+      "category": "Home",
+      "customer_segment": "New",
+      "units": "52",
+      "revenue": "5992.32"
+    }
+  ],
+  "topRowsSortKey": "revenue"
+}

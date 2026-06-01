@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getClient, MODEL, MAX_TOKENS, extractJSON } from '@/lib/anthropic';
@@ -10,7 +12,10 @@ const RequestSchema = z.object({
     columns: z.array(z.any()),
     sampleRows: z.array(z.any()),
   }),
+  demo: z.boolean().optional(),
 });
+
+const DEMO_PERCEIVED_DELAY_MS = 2500;
 
 export async function POST(req: Request) {
   let parsed;
@@ -18,6 +23,18 @@ export async function POST(req: Request) {
     parsed = RequestSchema.parse(await req.json());
   } catch {
     return NextResponse.json({ error: 'invalid request' }, { status: 400 });
+  }
+
+  if (parsed.demo) {
+    try {
+      const path = join(process.cwd(), 'public', 'demo-result.json');
+      const cached = JSON.parse(await readFile(path, 'utf-8'));
+      await new Promise((r) => setTimeout(r, DEMO_PERCEIVED_DELAY_MS));
+      return NextResponse.json(AnalyzeResponseSchema.parse(cached));
+    } catch (err) {
+      console.error('demo cache miss', err);
+      // fall through to live call
+    }
   }
 
   const client = getClient();
