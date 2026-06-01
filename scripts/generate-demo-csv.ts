@@ -15,7 +15,7 @@ const categories = ['Apparel', 'Electronics', 'Home', 'Outdoor', 'Beauty'];
 const segments = ['New', 'Returning', 'Loyalty'];
 
 function seasonality(month: number): number {
-  // Higher Q4, lower Q1
+  // Peak in Dec/Jan, trough in Jun
   return 1 + 0.4 * Math.sin(((month - 9) / 12) * Math.PI * 2);
 }
 
@@ -29,15 +29,15 @@ function generate(): Row[] {
   for (let d = 0; d < 365; d++) {
     const date = new Date(start);
     date.setDate(start.getDate() + d);
-    const month = date.getMonth() + 1;
+    const month = date.getUTCMonth() + 1;
     for (const region of regions) {
       for (const category of categories) {
         // Deliberate anomaly: Northeast Outdoor spikes in August 2025
         const anomaly =
           region === 'Northeast' &&
           category === 'Outdoor' &&
-          date.getFullYear() === 2025 &&
-          date.getMonth() === 7
+          date.getUTCFullYear() === 2025 &&
+          date.getUTCMonth() === 7
             ? 3.5
             : 1;
         const segment = segments[Math.floor(Math.random() * segments.length)];
