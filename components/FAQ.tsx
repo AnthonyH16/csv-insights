@@ -19,7 +19,7 @@ const items: Item[] = [
   },
   {
     q: 'What if the AI gets something wrong?',
-    a: 'Two safeguards. The prompt forces the AI to cite specific columns and values from your data, which makes hallucinations rare and easy to spot. For high-stakes use cases — anything customer-facing or financial — I add a human-in-the-loop step: the AI drafts, a person approves before it ships.',
+    a: 'Two safeguards. The prompt forces the AI to cite specific columns and values from your data, which makes hallucinations rare and easy to spot. For high-stakes use cases — anything customer-facing or financial — I add a human-in-the-loop step where someone on your team reviews and approves the AI output before it ships. Your data stays on your side; I am not the reviewer.',
   },
   {
     q: 'Can it handle our messy data?',
