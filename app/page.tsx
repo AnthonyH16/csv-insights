@@ -6,6 +6,8 @@ import { InsightCard } from '@/components/InsightCard';
 import { Chart } from '@/components/Chart';
 import { FollowupChat } from '@/components/FollowupChat';
 import { InsightsSkeleton, ChartsSkeleton } from '@/components/Skeleton';
+import { ContactForm } from '@/components/ContactForm';
+import { FAQ } from '@/components/FAQ';
 import type { Digest } from '@/lib/digest';
 import type { AnalyzeResponse } from '@/lib/schemas';
 
@@ -119,19 +121,31 @@ export default function Home() {
             seedQuestions={state.result.followup_questions}
           />
 
-          <div className="rounded-2xl border border-[var(--color-accent)] bg-[var(--color-bg-elev)] p-6 text-center">
-            <p className="text-lg">
+          <section>
+            <h2 className="mb-4 text-center text-2xl font-semibold tracking-tight">
               Want this on your data, automated, in your stack?
-            </p>
-            <a
-              href={CAL_LINK}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-3 inline-block rounded-lg bg-[var(--color-accent)] px-5 py-3 font-medium text-black hover:bg-[var(--color-accent-dim)]"
-            >
-              Book a 15-min call →
-            </a>
-          </div>
+            </h2>
+            <div className="grid items-stretch gap-4 md:grid-cols-2">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-[var(--color-accent)] bg-[var(--color-bg-elev)] p-6 text-center">
+                <p className="text-lg font-medium">Book a 15-minute call</p>
+                <p className="mt-2 max-w-xs text-sm text-[var(--color-fg-muted)]">
+                  Pick a slot that works. We&apos;ll talk through your data and what would
+                  be possible.
+                </p>
+                <a
+                  href={CAL_LINK}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-block rounded-lg bg-[var(--color-accent)] px-5 py-3 font-medium text-black transition hover:bg-[var(--color-accent-dim)]"
+                >
+                  Pick a time →
+                </a>
+              </div>
+              <ContactForm />
+            </div>
+          </section>
+
+          <FAQ />
 
           <div className="text-center">
             <button
@@ -144,6 +158,8 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {state.kind === 'idle' && <FAQ />}
     </main>
   );
 }

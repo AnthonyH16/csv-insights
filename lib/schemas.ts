@@ -24,7 +24,15 @@ export const FollowupResponseSchema = z.object({
   answer: z.string().min(1).max(1200),
 });
 
+export const ContactRequestSchema = z.object({
+  name: z.string().min(1).max(100),
+  email: z.string().email().max(200),
+  company: z.string().max(200).optional(),
+  message: z.string().min(1).max(2000),
+});
+
 export type Insight = z.infer<typeof InsightSchema>;
 export type ChartSpec = z.infer<typeof ChartSpecSchema>;
 export type AnalyzeResponse = z.infer<typeof AnalyzeResponseSchema>;
 export type FollowupResponse = z.infer<typeof FollowupResponseSchema>;
+export type ContactRequest = z.infer<typeof ContactRequestSchema>;
