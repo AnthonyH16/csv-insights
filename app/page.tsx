@@ -108,11 +108,13 @@ export default function Home() {
               Charts
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
-              {state.result.suggested_charts.map((spec, i) => (
-                <div key={i} className={i === 0 ? 'md:col-span-2' : ''}>
-                  <Chart spec={spec} rows={state.rawRows} />
-                </div>
-              ))}
+              {[...state.result.suggested_charts]
+                .sort((a, b) => (a.type === 'line' ? -1 : b.type === 'line' ? 1 : 0))
+                .map((spec, i) => (
+                  <div key={i} className={i === 0 ? 'md:col-span-2' : ''}>
+                    <Chart spec={spec} rows={state.rawRows} />
+                  </div>
+                ))}
             </div>
           </section>
 
